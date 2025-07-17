@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rona7do | 个人博客</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e74c3c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --gray-color: #95a5a6;
+            --transition: all 0.3s ease;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        nav ul li a.active {
+            background-color: var(--accent-color);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 500px;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            animation: fadeIn 1.5s ease;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 主要内容区 */
+        .main-content {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 3rem;
+        }
+        
+        .articles {
+            flex: 3;
+        }
+        
+        .article-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+            transition: var(--transition);
+        }
+        
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .article-img {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .article-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .article-card:hover .article-img img {
+            transform: scale(1.05);
+        }
+        
+        .article-content {
+            padding: 25px;
+        }
+        
+        .article-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--gray-color);
+        }
+        
+        .article-meta span {
+            margin-right: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .article-meta i {
+            margin-right: 5px;
+            color: var(--primary-color);
+        }
+        
+        .article-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .article-content p {
+            margin-bottom: 20px;
+            color: #555;
+        }
+        
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+        
+        .read-more i {
+            margin-left: 5px;
+            transition: var(--transition);
+        }
+        
+        .read-more:hover {
+            color: var(--accent-color);
+        }
+        
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* 侧边栏 */
+        .sidebar {
+            flex: 1;
+        }
+        
+        .sidebar-widget {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .sidebar-widget h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--primary-color);
+            color: var(--dark-color);
+        }
+        
+        .about-author {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .author-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 5px solid var(--light-color);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .author-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .author-info h4 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .author-info p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .categories ul {
+            list-style: none;
+        }
+        
+        .categories ul li {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .categories ul li:last-child {
+            border-bottom: none;
+        }
+        
+        .categories ul li a {
+            text-decoration: none;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+            transition: var(--transition);
+        }
+        
+        .categories ul li a:hover {
+            color: var(--primary-color);
+        }
+        
+        .categories ul li a span {
+            background-color: var(--light-color);
+            padding: 2px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        .tags a {
+            display: inline-block;
+            background-color: var(--light-color);
+            color: #555;
+            padding: 5px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .tags a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-widget {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-widget h4 {
+            font-size: 1.3rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-widget h4::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+        
+        .footer-widget p {
+            margin-bottom: 20px;
+            color: #bbb;
+        }
+        
+        .footer-links li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer-links li:last-child {
+            border-bottom: none;
+        }
+        
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 0.9rem;
+        }
+        
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+                justify-content: center;
+            }
+            
+            nav ul li {
+                margin: 0 10px;
+            }
+            
+            .hero {
+                height: 400px;
+            }
+            
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .hero {
+                height: 350px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-pen-nib"></i>
+                    <span>Rona7do</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="active">首页</a></li>
+                        <li><a href="#">技术</a></li>
+                        <li><a href="#">设计</a></li>
+                        <li><a href="#">生活</a></li>
+                        <li><a href="#">旅行</a></li>
+                        <li><a href="#">关于</a></li>
+                        <li><a href="#">联系</a></li>
+                    </ul>
+                </nav>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>书写思想，分享生活</h1>
+            <p>欢迎来到我的个人博客空间，这里分享技术、设计、生活和旅行中的点滴感悟</p>
+            <a href="#" class="btn">浏览文章 <i class="fas fa-arrow-right"></i></a>
+        </div>
+    </section>
+
+    <!-- 主要内容区 -->
+    <div class="container">
+        <div class="main-content">
+            <!-- 文章区域 -->
+            <section class="articles">
+                <article class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="前端开发">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> 2023-10-15</span>
+                            <span><i class="far fa-folder"></i> 技术</span>
+                            <span><i class="far fa-comments"></i> 24 评论</span>
+                        </div>
+                        <h3>现代前端开发框架的演变与未来趋势</h3>
+                        <p>在过去的十年中，前端开发经历了翻天覆地的变化。从最初的jQuery到如今的React、Vue和Angular三大框架，前端开发已经变得前所未有的强大和复杂。本文将探讨前端框架的发展历程、当前主流框架的特点以及未来可能的发展方向...</p>
+                        <a href="#" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1700&q=80" alt="UI设计">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> 2023-10-08</span>
+                            <span><i class="far fa-folder"></i> 设计</span>
+                            <span><i class="far fa-comments"></i> 18 评论</span>
+                        </div>
+                        <h3>2023年UI/UX设计趋势解析</h3>
+                        <p>随着技术的不断发展和用户需求的变化，UI/UX设计领域也在快速演进。2023年我们看到了一些令人兴奋的新趋势，包括玻璃拟态设计、3D元素的应用、微交互的增强以及无障碍设计的重视。本文将详细分析这些趋势的具体表现...</p>
+                        <a href="#" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+
+                <article class="article-card">
+                    <div class="article-img">
+                        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80" alt="旅行">
+                    </div>
+                    <div class="article-content">
+                        <div class="article-meta">
+                            <span><i class="far fa-calendar"></i> 2023-10-01</span>
+                            <span><i class="far fa-folder"></i> 旅行</span>
+                            <span><i class="far fa-comments"></i> 32 评论</span>
+                        </div>
+                        <h3>云南大理深度游：苍山洱海间的慢生活</h3>
+                        <p>大理，一个让人魂牵梦绕的地方。苍山洱海之间，白族文化浓郁，生活节奏缓慢而舒适。在这篇文章中，我将分享我最近一次大理深度游的经历，包括小众景点推荐、特色美食体验以及如何真正融入当地生活的建议...</p>
+                        <a href="#" class="read-more">阅读全文 <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </section>
+
+            <!-- 侧边栏 -->
+            <aside class="sidebar">
+                <div class="sidebar-widget about-author">
+                    <div class="author-img">
+                        <img src="https://i.imgur.com/JqYeZbT.jpg" alt="小松菜奈">
+                    </div>
+                    <div class="author-info">
+                        <h4>Rona7do</h4>
+                        <p>前端工程师 & UI设计师 | 热爱技术、设计和旅行，喜欢分享生活中的美好瞬间和思考。</p>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-weibo"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="sidebar-widget categories">
+                    <h3>文章分类</h3>
+                    <ul>
+                        <li><a href="#">技术 <span>28</span></a></li>
+                        <li><a href="#">设计 <span>15</span></a></li>
+                        <li><a href="#">生活随笔 <span>42</span></a></li>
+                        <li><a href="#">旅行游记 <span>19</span></a></li>
+                        <li><a href="#">读书笔记 <span>12</span></a></li>
+                        <li><a href="#">摄影作品 <span>7</span></a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-widget">
+                    <h3>热门标签</h3>
+                    <div class="tags">
+                        <a href="#">JavaScript</a>
+                        <a href="#">CSS3</a>
+                        <a href="#">Vue.js</a>
+                        <a href="#">React</a>
+                        <a href="#">UI设计</a>
+                        <a href="#">用户体验</a>
+                        <a href="#">旅行</a>
+                        <a href="#">摄影</a>
+                        <a href="#">美食</a>
+                        <a href="#">读书</a>
+                        <a href="#">生活感悟</a>
+                        <a href="#">个人成长</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-widget">
+                    <h4>关于博客</h4>
+                    <p>"Rona7do"是一个分享技术、设计、生活和旅行的个人博客。在这里，我记录自己的学习历程、生活感悟和旅行见闻，希望能与志同道合的朋友交流分享。</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-weibo"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-widget">
+                    <h4>热门分类</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">前端开发</a></li>
+                        <li><a href="#">UI/UX设计</a></li>
+                        <li><a href="#">旅行游记</a></li>
+                        <li><a href="#">摄影作品</a></li>
+                        <li><a href="#">读书笔记</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-widget">
+                    <h4>快速链接</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">关于我</a></li>
+                        <li><a href="#">联系我</a></li>
+                        <li><a href="#">隐私政策</a></li>
+                        <li><a href="#">版权声明</a></li>
+                        <li><a href="#">友情链接</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-widget">
+                    <h4>订阅更新</h4>
+                    <p>订阅我的博客，获取最新文章和资源更新通知。</p>
+                    <form>
+                        <input type="email" placeholder="输入您的邮箱" style="width: 100%; padding: 10px; margin-bottom: 10px; border-radius: 4px; border: none;">
+                        <button class="btn" style="width: 100%;">订阅</button>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Rona7do | 个人博客. 保留所有权利</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
